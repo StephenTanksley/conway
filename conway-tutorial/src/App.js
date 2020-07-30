@@ -72,7 +72,6 @@ const App = () => {
         }
       });
     });
-
     setTimeout(runSimulation, 1000);
   }, []);
 
