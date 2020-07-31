@@ -79,6 +79,7 @@ const App = () => {
       <button
         onClick={() => {
           setGrid(newGrid());
+          dispatch({ type: CLEAR });
         }}
       >
         Clear
@@ -86,6 +87,7 @@ const App = () => {
       <button
         onClick={() => {
           setGrid(randomGrid());
+          dispatch({ type: RANDOM_BOARD });
         }}
       >
         Random
