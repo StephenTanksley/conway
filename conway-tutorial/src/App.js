@@ -17,6 +17,10 @@ const App = () => {
     return newGrid();
   });
 
+  // setting the width for responsive design
+  const width = Math.round((window.innerWidth * 0.36) / size);
+
+  // retrieving actions for context
   const {
     RUNNING,
     STOP_RUNNING,
@@ -33,8 +37,6 @@ const App = () => {
     if (!runningRef.current) {
       return;
     }
-
-    // simulation logic goes here
 
     setGrid((current_grid) => {
       return produce(current_grid, (draft) => {
@@ -80,6 +82,7 @@ const App = () => {
         onClick={() => {
           setGrid(newGrid());
           dispatch({ type: CLEAR });
+          dispatch({ type: STOP_RUNNING });
         }}
       >
         Clear
