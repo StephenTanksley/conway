@@ -10,7 +10,14 @@ import {
   ControlButton,
   Cell,
 } from "./styles/container";
-import { Accordion, Card, Button } from "react-bootstrap";
+import {
+  Accordion,
+  Card,
+  Button,
+  InputGroup,
+  Input,
+  FormControl,
+} from "react-bootstrap";
 import produce from "immer";
 import RubberSlider from "@shwilliam/react-rubber-slider";
 import "@shwilliam/react-rubber-slider/dist/styles.css";
@@ -19,21 +26,21 @@ import "./App.css";
 
 const App = () => {
   const state = useStore();
-  const { size, speed, running, generations } = state.state;
+  const { speed, running, generations } = state.state;
   const { dispatch } = state;
   const [grid, setGrid] = useState(() => {
     return newGrid();
   });
 
+  const [size, setSize] = useState(20);
+
   console.log("initial size: ", size);
   const [value, setValue] = useState(0.6);
-  const numRows = 20;
-  const numCols = 20;
+  const numRows = size;
+  const numCols = size;
 
   // setting the width for responsive design
   const dimensions = Math.round((window.innerWidth * 0.25) / size);
-
-  console.log(dimensions);
 
   // retrieving actions for context
   const { RUNNING, STOP_RUNNING, NEXT_GEN, RANDOM_BOARD, CLEAR } = ACTIONS;
@@ -41,12 +48,10 @@ const App = () => {
   const valueRef = useRef(value);
   valueRef.current = value;
 
-  console.log(valueRef.current);
   const runningRef = useRef(running);
   runningRef.current = running;
 
   const updateTime = speed / value;
-
   const runSimulation = useCallback(() => {
     if (!runningRef.current) {
       return;
@@ -77,7 +82,7 @@ const App = () => {
     });
     dispatch({ type: NEXT_GEN });
     setTimeout(runSimulation, updateTime);
-  }, [grid, updateTime]);
+  }, [grid, updateTime, size]);
 
   return (
     <>
@@ -266,7 +271,37 @@ const App = () => {
           max={20}
           default={10}
         />
+        {/* <div>{updateTime}</div> */}
       </Container>
+
+      <Container>
+        <label for="size-slider">Size</label>
+        <RubberSlider
+          width={250}
+          value={size}
+          onChange={setSize}
+          id="size-slider"
+          name="size-slider"
+          min={20}
+          max={100}
+          step={10}
+          default={10}
+        />
+
+        <div>{size}</div>
+      </Container>
+      {/* <Container>
+        <InputGroup className="size">
+          <FormControl
+            aria-label="Size"
+            placeholder="Size"
+            style={{
+              maxWidth: "14vw",
+              margin: "0 auto",
+            }}
+          />
+        </InputGroup>
+      </Container> */}
     </>
   );
 };
