@@ -183,7 +183,7 @@ const App = () => {
               <Card>
                 <Card.Header>
                   <Accordion.Toggle as={Button} variant="link" eventKey="2">
-                    Turing Machine
+                    What's A Turing Machine?
                   </Accordion.Toggle>
                 </Card.Header>
                 <Accordion.Collapse eventKey="2">
