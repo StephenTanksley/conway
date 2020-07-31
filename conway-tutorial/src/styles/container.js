@@ -29,5 +29,6 @@ export const ControlButton = styled.button`
 `;
 
 export const Cell = styled.div`
-  border-radius: 0.05rem;
+  border-radius: 0.5rem;
+  box-shadow: inset 0px 0px 1px #000000;
 `;

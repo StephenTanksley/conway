@@ -3,21 +3,14 @@ import { newGrid, randomGrid } from "../helpers/grids";
 import { ACTIONS } from "../context/actions";
 
 // destructuring ACTIONS
-const {
-  RUNNING,
-  STOP_RUNNING,
-  NEXT_GEN,
-  RANDOM_BOARD,
-  CLEAR,
-  UPDATE_BOARD,
-} = ACTIONS;
+const { RUNNING, STOP_RUNNING, NEXT_GEN, RANDOM_BOARD, CLEAR } = ACTIONS;
 
 // setting up the context for our global store.
 const StoreContext = createContext();
 
 const initialState = {
-  size: 10,
-  speed: 250,
+  size: 20,
+  speed: 2000,
   generations: 0,
   running: false,
 };

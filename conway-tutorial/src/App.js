@@ -16,9 +16,6 @@ import "@shwilliam/react-rubber-slider/dist/styles.css";
 
 import "./App.css";
 
-const numRows = 20;
-const numCols = 20;
-
 const App = () => {
   const state = useStore();
   const { size, speed, running, generations } = state.state;
@@ -26,31 +23,32 @@ const App = () => {
   const [grid, setGrid] = useState(() => {
     return newGrid();
   });
-  const [value, setValue] = useState(0.5);
+  const [value, setValue] = useState(0.6);
+  const numRows = 20;
+  const numCols = 20;
 
   // setting the width for responsive design
   const width = Math.round((window.innerWidth * 0.36) / size);
 
   // retrieving actions for context
-  const {
-    RUNNING,
-    STOP_RUNNING,
-    NEXT_GEN,
-    RANDOM_BOARD,
-    UPDATE_BOARD,
-    CLEAR,
-  } = ACTIONS;
+  const { RUNNING, STOP_RUNNING, NEXT_GEN, RANDOM_BOARD, CLEAR } = ACTIONS;
 
+  const valueRef = useRef(value);
+  valueRef.current = value;
+
+  console.log(valueRef.current);
   const runningRef = useRef(running);
   runningRef.current = running;
+
+  const updateTime = speed / value;
 
   const runSimulation = useCallback(() => {
     if (!runningRef.current) {
       return;
     }
 
-    setGrid((current_grid) => {
-      return produce(current_grid, (draft) => {
+    setGrid((grid) => {
+      return produce(grid, (draft) => {
         for (let i = 0; i < numRows; i++) {
           for (let j = 0; j < numCols; j++) {
             let neighborCount = 0;
@@ -59,7 +57,7 @@ const App = () => {
               const newJ = j + y;
 
               if (newI >= 0 && newI < numRows && newJ >= 0 && newJ < numCols) {
-                neighborCount += current_grid[newI][newJ];
+                neighborCount += grid[newI][newJ];
               }
             });
 
@@ -73,8 +71,8 @@ const App = () => {
       });
     });
     dispatch({ type: NEXT_GEN });
-    setTimeout(runSimulation, 1000);
-  }, [grid]);
+    setTimeout(runSimulation, updateTime);
+  }, [grid, updateTime]);
 
   return (
     <>
@@ -94,17 +92,22 @@ const App = () => {
               rows.map((col, j) => (
                 <Cell
                   key={`${i}:${j}`}
-                  onClick={() => {
-                    const clickedGrid = produce(grid, (draft) => {
-                      draft[i][j] = grid[i][j] ? 0 : 1;
-                    });
-                    setGrid(clickedGrid);
-                  }}
+                  onClick={
+                    runningRef.current === false
+                      ? () => {
+                          const clickedGrid = produce(grid, (draft) => {
+                            draft[i][j] = grid[i][j] ? 0 : 1;
+                          });
+                          setGrid(clickedGrid);
+                        }
+                      : undefined
+                  }
+                  // dimensions={size}
                   style={{
-                    width: 20,
-                    height: 20,
-                    backgroundColor: grid[i][j] ? "#28112B" : undefined,
-                    border: "solid 1px black",
+                    width: size,
+                    height: size,
+                    backgroundColor: grid[i][j] ? "#cccccc" : "white",
+                    border: "solid 1px #efefef",
                   }}
                 />
               ))
@@ -151,6 +154,19 @@ const App = () => {
         >
           Random
         </ControlButton>
+      </Container>
+      <Container>
+        <RubberSlider
+          width={250}
+          value={value}
+          onChange={setValue}
+          min={1}
+          max={20}
+          default={10}
+        />
+        {/* This should be increasing the amount that we divide the speed value with. 
+        We start at 2000 (every two seconds) and then divide that by the amount that we're returning
+        from the rubber slider. */}
       </Container>
     </>
   );
