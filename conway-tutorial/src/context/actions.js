@@ -1,0 +1,9 @@
+// actions for the reducer
+export const ACTIONS = {
+  RUNNING: "RUNNING",
+  STOP_RUNNING: "STOP_RUNNING",
+  NEXT_GEN: "NEXT_GEN",
+  RANDOM_BOARD: "RANDOM_BOARD",
+  UPDATE_BOARD: "UPDATE_BOARD",
+  CLEAR: "CLEAR",
+};
