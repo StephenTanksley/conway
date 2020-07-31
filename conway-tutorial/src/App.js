@@ -1,43 +1,30 @@
 import React, { useState, useCallback, useRef } from "react";
+import { useStore } from "./context/store";
+import { ACTIONS } from "./context/actions";
+import { neighbors } from "./helpers/neighbors";
+import { newGrid, randomGrid } from "./helpers/grids";
 import produce from "immer";
 import "./App.css";
 
 const numRows = 20;
 const numCols = 20;
 
-const newGrid = () => {
-  const rows = [];
-  for (let i = 0; i < numRows; i++) {
-    rows.push(Array.from(Array(numCols), () => 0));
-  }
-  return rows;
-};
-
-const randomGrid = () => {
-  const rows = [];
-  for (let i = 0; i < numRows; i++) {
-    rows.push(Array.from(Array(numCols), () => (Math.random() > 0.6 ? 1 : 0)));
-  }
-  return rows;
-};
-
 const App = () => {
-  const [size, setSize] = useState(10);
-  const [running, setRunning] = useState(false);
+  const state = useStore();
+  const { size, speed, running, generations } = state.state;
+  const { dispatch } = state;
   const [grid, setGrid] = useState(() => {
     return newGrid();
   });
 
-  let neighbors = [
-    [-1, -1],
-    [-1, 0],
-    [-1, 1],
-    [0, -1],
-    [0, 1],
-    [1, -1],
-    [1, 0],
-    [1, 1],
-  ];
+  const {
+    RUNNING,
+    STOP_RUNNING,
+    NEXT_GEN,
+    RANDOM_BOARD,
+    UPDATE_BOARD,
+    CLEAR,
+  } = ACTIONS;
 
   const runningRef = useRef(running);
   runningRef.current = running;
@@ -74,13 +61,13 @@ const App = () => {
     });
 
     setTimeout(runSimulation, 1000);
-  }, []);
+  }, [grid]);
 
   return (
     <>
       <button
         onClick={() => {
-          setRunning(!running);
+          dispatch({ type: RUNNING });
           if (!running) {
             runningRef.current = true;
             runSimulation();
@@ -114,10 +101,10 @@ const App = () => {
             <div
               key={`${i}:${j}`}
               onClick={() => {
-                const newGrid = produce(grid, (draft) => {
+                const clickedGrid = produce(grid, (draft) => {
                   draft[i][j] = grid[i][j] ? 0 : 1;
                 });
-                setGrid(newGrid);
+                setGrid(clickedGrid);
               }}
               style={{
                 width: 20,
