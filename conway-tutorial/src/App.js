@@ -10,10 +10,11 @@ import {
   ControlButton,
   Cell,
 } from "./styles/container";
+import { Accordion, Card, Button } from "react-bootstrap";
 import produce from "immer";
 import RubberSlider from "@shwilliam/react-rubber-slider";
 import "@shwilliam/react-rubber-slider/dist/styles.css";
-
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 const App = () => {
@@ -23,12 +24,16 @@ const App = () => {
   const [grid, setGrid] = useState(() => {
     return newGrid();
   });
+
+  console.log("initial size: ", size);
   const [value, setValue] = useState(0.6);
   const numRows = 20;
   const numCols = 20;
 
   // setting the width for responsive design
-  const width = Math.round((window.innerWidth * 0.36) / size);
+  const dimensions = Math.round((window.innerWidth * 0.25) / size);
+
+  console.log(dimensions);
 
   // retrieving actions for context
   const { RUNNING, STOP_RUNNING, NEXT_GEN, RANDOM_BOARD, CLEAR } = ACTIONS;
@@ -83,9 +88,14 @@ const App = () => {
       <Container>
         <BoardContainer>
           <div
+            // dimensions={dimensions}
+            // size={size}
             style={{
               display: "grid",
-              gridTemplateColumns: `repeat(${numCols}, 20px)`,
+              width: "40vw",
+              alignItems: "center",
+              // border: "1px solid LightGray",
+              gridTemplateColumns: `repeat(${size}, ${dimensions}px)`,
             }}
           >
             {grid.map((rows, i) =>
@@ -102,10 +112,11 @@ const App = () => {
                         }
                       : undefined
                   }
-                  // dimensions={size}
+                  // dimensions={dimensions}
+                  // alive={grid[i][j] ? true : false}
                   style={{
-                    width: size,
-                    height: size,
+                    width: `${dimensions}px`,
+                    height: `${dimensions}px`,
                     backgroundColor: grid[i][j] ? "#cccccc" : "white",
                     border: "solid 1px #efefef",
                   }}
@@ -117,10 +128,55 @@ const App = () => {
 
         <Container>
           <TextContainer>
-            <p>
-              The "Game of Life" was developed by British mathematician John
-              Conway
-            </p>
+            <Accordion defaultActiveKey="0">
+              <Card>
+                <Card.Header>
+                  <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                    Info
+                  </Accordion.Toggle>
+                </Card.Header>
+                <Accordion.Collapse eventKey="0">
+                  <Card.Body>
+                    The "Game of Life" was developed by British mathematician
+                    John Conway. It is an example of cellular automation, a
+                    model studied in automata theory.
+                    <br /> <br />
+                    In Conway's Game of Life, cells are born and die according
+                    to rules defined in the beginning of the simulation.
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+
+              <Card>
+                <Card.Header>
+                  <Accordion.Toggle as={Button} variant="link" eventKey="1">
+                    Rules
+                  </Accordion.Toggle>
+                </Card.Header>
+                <Accordion.Collapse eventKey="1">
+                  <Card.Body>
+                    The rules of Conway's Game of Life are simple.
+                    <ul>
+                      <li>
+                        Any live cell with two or three live neighbours
+                        survives.
+                      </li>
+                      <li>
+                        Any dead cell with three live neighbours becomes a live
+                        cell.
+                      </li>
+                      <li>
+                        All other live cells die in the next generation.
+                        Similarly, all other dead cells stay dead.
+                      </li>
+                    </ul>
+                    For each iteration (or generation as I'm calling them), each
+                    cell will be evaluated according to these rules and will
+                    either die or be reborn according to the rules provided.
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+            </Accordion>
           </TextContainer>
         </Container>
       </Container>
@@ -156,17 +212,17 @@ const App = () => {
         </ControlButton>
       </Container>
       <Container>
+        <label for="speed-slider">Speed</label>
         <RubberSlider
           width={250}
           value={value}
           onChange={setValue}
+          id="speed-slider"
+          name="speed-slider"
           min={1}
           max={20}
           default={10}
         />
-        {/* This should be increasing the amount that we divide the speed value with. 
-        We start at 2000 (every two seconds) and then divide that by the amount that we're returning
-        from the rubber slider. */}
       </Container>
     </>
   );
