@@ -62,11 +62,10 @@ export const InfoPanel = () => {
               </Card.Header>
               <Accordion.Collapse eventKey="2">
                 <Card.Body>
-                  <h4>A Turing Machine: </h4>
                   The Game of Life is an example of a Turing Complete automata.
                   This means that it can function as a Turing Machine. A Turing
                   Machine is a theoretical machine posited by British
-                  mathematician Alan Turing.
+                  mathematician Alan Turing. <br />A Turing Machine:
                   <ul>
                     <li>
                       Imagines an arbitrarily long magnetic tape divided into
