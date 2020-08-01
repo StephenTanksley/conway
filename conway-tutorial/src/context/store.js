@@ -3,19 +3,26 @@ import { newGrid, randomGrid } from "../helpers/grids";
 import { ACTIONS } from "../context/actions";
 
 // destructuring ACTIONS
-const { RUNNING, STOP_RUNNING, NEXT_GEN, RANDOM_BOARD, CLEAR } = ACTIONS;
+const {
+  RUNNING,
+  STOP_RUNNING,
+  SET_SIZE,
+  NEXT_GEN,
+  RANDOM_BOARD,
+  CLEAR,
+} = ACTIONS;
 
 // setting up the context for our global store.
 const StoreContext = createContext();
 
 const initialState = {
-  size: 20,
+  size: 100,
   speed: 2000,
   generations: 0,
   running: false,
 };
 
-const reducer = (state, action) => {
+const reducer = (state, action, payload) => {
   switch (action.type) {
     case RUNNING:
       return {
@@ -29,6 +36,12 @@ const reducer = (state, action) => {
         ...state,
         // returns the state of running as false.
         running: false,
+      };
+
+    case SET_SIZE:
+      return {
+        ...state,
+        size: payload,
       };
 
     case NEXT_GEN:

@@ -6,18 +6,9 @@ import { newGrid, randomGrid } from "./helpers/grids";
 import {
   Container,
   BoardContainer,
-  TextContainer,
   ControlButton,
   Cell,
 } from "./styles/container";
-import {
-  Accordion,
-  Card,
-  Button,
-  InputGroup,
-  Input,
-  FormControl,
-} from "react-bootstrap";
 
 import { InfoPanel } from "./components/InfoPanel";
 import produce from "immer";
@@ -28,7 +19,25 @@ import "./App.css";
 
 const App = () => {
   const state = useStore();
-  const { speed, running, generations } = state.state;
+
+  const { speed, size, running, generations } = state.state;
+
+  const newGrid = () => {
+    const rows = [];
+    for (let i = 0; i < size; i++) {
+      rows.push(Array.from(Array(size), () => 0));
+    }
+    return rows;
+  };
+
+  const randomGrid = () => {
+    const rows = [];
+    for (let i = 0; i < size; i++) {
+      rows.push(Array.from(Array(size), () => (Math.random() > 0.6 ? 1 : 0)));
+    }
+    return rows;
+  };
+
   const { dispatch } = state;
   const [grid, setGrid] = useState(() => {
     return newGrid();
@@ -38,12 +47,8 @@ const App = () => {
     return newGrid();
   });
 
-  const [size, setSize] = useState(20);
-
   console.log("initial size: ", size);
   const [value, setValue] = useState(0.6);
-  const numRows = size;
-  const numCols = size;
 
   // setting the width for responsive design
   const dimensions = Math.round((window.innerWidth * 0.25) / size);
@@ -68,14 +73,14 @@ const App = () => {
 
     setGrid((grid) => {
       return produce(grid, (draft) => {
-        for (let i = 0; i < numRows; i++) {
-          for (let j = 0; j < numCols; j++) {
+        for (let i = 0; i < size; i++) {
+          for (let j = 0; j < size; j++) {
             let neighborCount = 0;
             neighbors.forEach(([x, y]) => {
               const newI = i + x;
               const newJ = j + y;
 
-              if (newI >= 0 && newI < numRows && newJ >= 0 && newJ < numCols) {
+              if (newI >= 0 && newI < size && newJ >= 0 && newJ < size) {
                 neighborCount += grid[newI][newJ];
               }
             });
@@ -101,14 +106,14 @@ const App = () => {
 
     setBuffer((buffer) => {
       return produce(buffer, (draft) => {
-        for (let i = 0; i < numRows; i++) {
-          for (let j = 0; j < numCols; j++) {
+        for (let i = 0; i < size; i++) {
+          for (let j = 0; j < size; j++) {
             let neighborCount = 0;
             neighbors.forEach(([x, y]) => {
               const newI = i + x;
               const newJ = j + y;
 
-              if (newI >= 0 && newI < numRows && newJ >= 0 && newJ < numCols) {
+              if (newI >= 0 && newI < size && newJ >= 0 && newJ < size) {
                 neighborCount += buffer[newI][newJ];
               }
             });
@@ -228,23 +233,23 @@ const App = () => {
         />
         {/* <div>{updateTime}</div> */}
       </Container>
-
+      {/* 
       <Container>
         <label for="size">Size</label>
         <RubberSlider
           width={200}
           value={size}
-          onChange={setSize}
+          // onChange={setSize}
           id="size"
           name="size"
           min={20}
           max={100}
           step={10}
           default={10}
-        />
-
+        /> */}
+      {/* 
         <div>{size}</div>
-      </Container>
+      </Container> */}
     </>
   );
 };
