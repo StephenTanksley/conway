@@ -67,6 +67,8 @@ mathematician Alan Turing.
 </li>
 </ul>
 
+---
+
 ## ---> To Install Locally <---
 
 ```
@@ -78,6 +80,8 @@ Then:
 
 `yarn install` or `npm i`
 ```
+
+---
 
 ## ---> Learn More <---
 

@@ -1,7 +1,11 @@
+// Logical Imports
 import React, { useState, useCallback, useRef } from "react";
 import { useStore } from "./context/store";
 import { ACTIONS } from "./context/actions";
 import { neighbors } from "./helpers/neighbors";
+import produce from "immer";
+
+// Styling imports
 import {
   Container,
   BoardContainer,
@@ -9,9 +13,7 @@ import {
   Cell,
   LivingColor,
 } from "./styles/container";
-
 import { InfoPanel } from "./components/InfoPanel";
-import produce from "immer";
 import RubberSlider from "@shwilliam/react-rubber-slider";
 import "@shwilliam/react-rubber-slider/dist/styles.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -19,7 +21,6 @@ import "./App.css";
 
 const App = () => {
   const state = useStore();
-
   const { speed, size, running, generations } = state.state;
 
   const newGrid = () => {
