@@ -15,8 +15,8 @@ const {
 const StoreContext = createContext();
 
 const initialState = {
-  size: 30,
-  speed: 2000,
+  size: 45,
+  speed: 1500,
   generations: 0,
   running: false,
 };

@@ -47,7 +47,6 @@ const App = () => {
     return buffer;
   });
 
-  console.log("initial size: ", size);
   const [value, setValue] = useState(4);
 
   // setting the width for responsive design
