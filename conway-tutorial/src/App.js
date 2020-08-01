@@ -51,7 +51,7 @@ const App = () => {
   const [value, setValue] = useState(0.6);
 
   // setting the width for responsive design
-  const dimensions = Math.round((window.innerWidth * 0.25) / size);
+  const dimensions = Math.round((window.innerWidth * 0.36) / size);
 
   // retrieving actions for context
   const { RUNNING, STOP_RUNNING, NEXT_GEN, RANDOM_BOARD, CLEAR } = ACTIONS;
@@ -104,8 +104,8 @@ const App = () => {
       return;
     }
 
-    setBuffer((buffer) => {
-      return produce(buffer, (draft) => {
+    setGrid((grid) => {
+      return produce(grid, (draft) => {
         for (let i = 0; i < size; i++) {
           for (let j = 0; j < size; j++) {
             let neighborCount = 0;
@@ -114,20 +114,20 @@ const App = () => {
               const newJ = j + y;
 
               if (newI >= 0 && newI < size && newJ >= 0 && newJ < size) {
-                neighborCount += buffer[newI][newJ];
+                neighborCount += grid[newI][newJ];
               }
             });
 
             if (neighborCount < 2 || neighborCount > 3) {
               draft[i][j] = 0;
-            } else if (buffer[i][j] === 0 && neighborCount === 3) {
+            } else if (grid[i][j] === 0 && neighborCount === 3) {
               draft[i][j] = 1;
             }
           }
         }
       });
     });
-  }, [buffer, updateTime, size]);
+  }, [grid, updateTime, size]);
 
   return (
     <>
