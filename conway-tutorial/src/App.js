@@ -197,17 +197,15 @@ const App = () => {
                     <ul>
                       <li>
                         Imagines an arbitrarily long magnetic tape divided into
-                        squares with values printed onto each square (1, 0, or
-                        blank).
+                        squares with values on each square.
                       </li>
                       <li>
-                        Also imagines a reader which moves along the length of
-                        the tape and reads the values at each index.
+                        Has a reader which moves along the length of the tape
+                        and reads the values at each square.
                       </li>
                       <li>
                         When the reader finds a value, it has coded instructions
-                        for what to do with that value (if value x, do y, then
-                        enter state z).
+                        for what to do (if value x, do y, then enter state z).
                       </li>
                       <li>
                         Finally, there is a finishing state whereby the Turing
