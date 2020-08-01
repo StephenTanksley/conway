@@ -76,7 +76,7 @@ Clone the project into the project directory. Once inside the project directory,
 
 Then:
 
-`yarn install` or `npm i`
+`yarn start` or `npm start`
 ```
 
 #### ---> Learn More <---
