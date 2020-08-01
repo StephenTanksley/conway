@@ -48,7 +48,7 @@ const App = () => {
   });
 
   console.log("initial size: ", size);
-  const [value, setValue] = useState(0.7);
+  const [value, setValue] = useState(0.5);
 
   // setting the width for responsive design
   const dimensions = Math.round((window.innerWidth * 0.36) / size);
@@ -104,7 +104,7 @@ const App = () => {
       return;
     }
 
-    setBuffer((buffer) => {
+    setGrid((buffer) => {
       return produce(buffer, (draft) => {
         for (let i = 0; i < size; i++) {
           for (let j = 0; j < size; j++) {
@@ -127,10 +127,7 @@ const App = () => {
         }
       });
     });
-    console.log("grid value: ", grid);
-    console.log("buffer value: ", buffer);
-    setGrid(buffer);
-  }, [buffer, grid, size]);
+  }, [size]);
 
   return (
     <>
