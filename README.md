@@ -67,7 +67,7 @@ mathematician Alan Turing.
 </li>
 </ul>
 
-## ---> To Install Locally <---
+#### ---> To Install Locally <---
 
 ```
 Clone the project into the project directory. Once inside the project directory, you can run:
@@ -79,7 +79,7 @@ Then:
 `yarn install` or `npm i`
 ```
 
-## ---> Learn More <---
+#### ---> Learn More <---
 
 ```
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
