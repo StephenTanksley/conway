@@ -7,6 +7,7 @@ import {
   BoardContainer,
   ControlButton,
   Cell,
+  LivingColor,
 } from "./styles/container";
 
 import { InfoPanel } from "./components/InfoPanel";
@@ -38,16 +39,16 @@ const App = () => {
   };
 
   const { dispatch } = state;
-  const [grid, setGrid] = useState(() => {
+  const [buffer, setBuffer] = useState(() => {
     return newGrid();
   });
 
-  // const [buffer, setBuffer] = useState(() => {
-  //   return newGrid();
-  // });
+  const [grid, setGrid] = useState(() => {
+    return buffer;
+  });
 
   console.log("initial size: ", size);
-  const [value, setValue] = useState(0.6);
+  const [value, setValue] = useState(0.7);
 
   // setting the width for responsive design
   const dimensions = Math.round((window.innerWidth * 0.36) / size);
@@ -61,7 +62,7 @@ const App = () => {
   const runningRef = useRef(running);
   runningRef.current = running;
 
-  const updateTime = speed / value;
+  const updateTime = Math.round(speed / value);
 
   // The buffer needs to run this way - the grid is set. The buffer runs the next step in the grid and saves that value.
   // When the grid needs to refresh its value, it can just pull that value directly from the buffer.
@@ -70,8 +71,8 @@ const App = () => {
       return;
     }
 
-    setGrid((grid) => {
-      return produce(grid, (draft) => {
+    setGrid((buffer) => {
+      return produce(buffer, (draft) => {
         for (let i = 0; i < size; i++) {
           for (let j = 0; j < size; j++) {
             let neighborCount = 0;
@@ -80,13 +81,13 @@ const App = () => {
               const newJ = j + y;
 
               if (newI >= 0 && newI < size && newJ >= 0 && newJ < size) {
-                neighborCount += grid[newI][newJ];
+                neighborCount += buffer[newI][newJ];
               }
             });
 
             if (neighborCount < 2 || neighborCount > 3) {
               draft[i][j] = 0;
-            } else if (grid[i][j] === 0 && neighborCount === 3) {
+            } else if (buffer[i][j] === 0 && neighborCount === 3) {
               draft[i][j] = 1;
             }
           }
@@ -103,8 +104,8 @@ const App = () => {
       return;
     }
 
-    setGrid((grid) => {
-      return produce(grid, (draft) => {
+    setBuffer((buffer) => {
+      return produce(buffer, (draft) => {
         for (let i = 0; i < size; i++) {
           for (let j = 0; j < size; j++) {
             let neighborCount = 0;
@@ -113,13 +114,13 @@ const App = () => {
               const newJ = j + y;
 
               if (newI >= 0 && newI < size && newJ >= 0 && newJ < size) {
-                neighborCount += grid[newI][newJ];
+                neighborCount += buffer[newI][newJ];
               }
             });
 
             if (neighborCount < 2 || neighborCount > 3) {
               draft[i][j] = 0;
-            } else if (grid[i][j] === 0 && neighborCount === 3) {
+            } else if (buffer[i][j] === 0 && neighborCount === 3) {
               draft[i][j] = 1;
             }
           }
@@ -166,7 +167,7 @@ const App = () => {
                   style={{
                     width: `${dimensions}px`,
                     height: `${dimensions}px`,
-                    backgroundColor: grid[i][j] ? "#cccccc" : "white",
+                    backgroundColor: grid[i][j] ? LivingColor() : "white",
                     border: "solid 1px #efefef",
                   }}
                 />
@@ -232,23 +233,23 @@ const App = () => {
         />
         {/* <div>{updateTime}</div> */}
       </Container>
-      {/* 
+
       <Container>
         <label for="size">Size</label>
         <RubberSlider
           width={200}
           value={size}
           // onChange={setSize}
-          id="size"
-          name="size"
+          id="size-slider"
+          name="size-slider"
           min={20}
           max={100}
           step={10}
           default={10}
-        /> */}
-      {/* 
+        />
+
         <div>{size}</div>
-      </Container> */}
+      </Container>
     </>
   );
 };

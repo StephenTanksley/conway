@@ -89,9 +89,6 @@ export const InfoPanel = () => {
                       Turing Machine can solve a problem that it is provided.
                     </li>
                   </ul>
-                  For each iteration (or generation as I'm calling them), each
-                  cell will be evaluated according to these rules and will
-                  either die or be reborn according to the rules provided.
                 </Card.Body>
               </Accordion.Collapse>
             </Card>

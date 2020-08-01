@@ -58,3 +58,10 @@ export const Cell = styled.div`
   height: ${(props) => `${props.size}px`};
   width: ${(props) => `${props.size}px`};
 `;
+
+export const LivingColor = () => {
+  const ColorChoices = ["#c3e8d1", "#b0d1bc", "#40e67d", "#27c461"];
+  const randomColor = Math.floor(Math.random() * ColorChoices.length);
+
+  return ColorChoices[randomColor];
+};
