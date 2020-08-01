@@ -1,19 +1,6 @@
 import React from "react";
-import {
-  Accordion,
-  Card,
-  Button,
-  InputGroup,
-  Input,
-  FormControl,
-} from "react-bootstrap";
-import {
-  Container,
-  BoardContainer,
-  TextContainer,
-  ControlButton,
-  Cell,
-} from "../styles/container";
+import { Accordion, Card, Button } from "react-bootstrap";
+import { Container, TextContainer } from "../styles/container";
 
 export const InfoPanel = () => {
   return (

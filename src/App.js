@@ -2,7 +2,6 @@ import React, { useState, useCallback, useRef } from "react";
 import { useStore } from "./context/store";
 import { ACTIONS } from "./context/actions";
 import { neighbors } from "./helpers/neighbors";
-import { newGrid, randomGrid } from "./helpers/grids";
 import {
   Container,
   BoardContainer,
@@ -43,9 +42,9 @@ const App = () => {
     return newGrid();
   });
 
-  const [buffer, setBuffer] = useState(() => {
-    return newGrid();
-  });
+  // const [buffer, setBuffer] = useState(() => {
+  //   return newGrid();
+  // });
 
   console.log("initial size: ", size);
   const [value, setValue] = useState(0.6);
@@ -96,7 +95,7 @@ const App = () => {
     });
     dispatch({ type: NEXT_GEN });
     setTimeout(runSimulation, updateTime);
-  }, [grid, updateTime, size]);
+  }, [grid, NEXT_GEN, dispatch, updateTime, size]);
 
   // currently set to run the buffer.
   const runNext = useCallback(() => {
@@ -127,7 +126,7 @@ const App = () => {
         }
       });
     });
-  }, [grid, updateTime, size]);
+  }, [size]);
 
   return (
     <>

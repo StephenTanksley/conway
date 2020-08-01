@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useReducer } from "react";
-import { newGrid, randomGrid } from "../helpers/grids";
 import { ACTIONS } from "../context/actions";
 
 // destructuring ACTIONS
