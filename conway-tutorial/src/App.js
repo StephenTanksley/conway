@@ -34,6 +34,10 @@ const App = () => {
     return newGrid();
   });
 
+  const [buffer, setBuffer] = useState(() => {
+    return newGrid();
+  });
+
   const [size, setSize] = useState(20);
 
   console.log("initial size: ", size);
@@ -54,6 +58,9 @@ const App = () => {
   runningRef.current = running;
 
   const updateTime = speed / value;
+
+  // The buffer needs to run this way - the grid is set. The buffer runs the next step in the grid and saves that value.
+  // When the grid needs to refresh its value, it can just pull that value directly from the buffer.
   const runSimulation = useCallback(() => {
     if (!runningRef.current) {
       return;
@@ -86,13 +93,14 @@ const App = () => {
     setTimeout(runSimulation, updateTime);
   }, [grid, updateTime, size]);
 
+  // currently set to run the buffer.
   const runNext = useCallback(() => {
     if (!runningRef.current) {
       return;
     }
 
-    setGrid((grid) => {
-      return produce(grid, (draft) => {
+    setBuffer((buffer) => {
+      return produce(buffer, (draft) => {
         for (let i = 0; i < numRows; i++) {
           for (let j = 0; j < numCols; j++) {
             let neighborCount = 0;
@@ -101,20 +109,20 @@ const App = () => {
               const newJ = j + y;
 
               if (newI >= 0 && newI < numRows && newJ >= 0 && newJ < numCols) {
-                neighborCount += grid[newI][newJ];
+                neighborCount += buffer[newI][newJ];
               }
             });
 
             if (neighborCount < 2 || neighborCount > 3) {
               draft[i][j] = 0;
-            } else if (grid[i][j] === 0 && neighborCount === 3) {
+            } else if (buffer[i][j] === 0 && neighborCount === 3) {
               draft[i][j] = 1;
             }
           }
         }
       });
     });
-  }, [grid, updateTime, size]);
+  }, [buffer, updateTime, size]);
 
   return (
     <>
@@ -237,18 +245,6 @@ const App = () => {
 
         <div>{size}</div>
       </Container>
-      {/* <Container>
-        <InputGroup className="size">
-          <FormControl
-            aria-label="Size"
-            placeholder="Size"
-            style={{
-              maxWidth: "14vw",
-              margin: "0 auto",
-            }}
-          />
-        </InputGroup>
-      </Container> */}
     </>
   );
 };
