@@ -95,7 +95,7 @@ const App = () => {
     });
     dispatch({ type: NEXT_GEN });
     setTimeout(runSimulation, updateTime);
-  }, [grid, NEXT_GEN, dispatch, updateTime, size]);
+  }, [NEXT_GEN, dispatch, updateTime, size]);
 
   // currently set to run the buffer.
   const runNext = useCallback(() => {
