@@ -2,6 +2,8 @@
 
 This project fulfills the requirements for the Lambda School CS Unit 1 Build Week. For this project, we were building a version of Conway's Game of Life.
 
+#### Link: https://tanksley-gameoflife.netlify.app/
+
 ## About the Game:
 
 ---
@@ -10,32 +12,32 @@ My concept for the game was originally to build it using an object constructor s
 
 I still might revisit the project to work out the bugs with that approach. For the sake of time, I pivoted to a simpler approach which used local state to handle the grid itself and global state to handle variables which affected the grid's execution and maintaining the generations.
 
-### The Rules:
-
 ---
+
+### The Rules:
 
 The rules of Conway's Game of Life are simple.
 
 <ul>
-<li>
-Any live cell with two or three live neighbours survives.
-</li>
-<li>
-Any dead cell with three live neighbours becomes a live
-cell.
-</li>
-<li>
-All other live cells die in the next generation.
-Similarly, all other dead cells stay dead.
-</li>
+    <li>
+    Any live cell with two or three live neighbours survives.
+    </li>
+    <li>
+    Any dead cell with three live neighbours becomes a live
+    cell.
+    </li>
+    <li>
+    All other live cells die in the next generation.
+    Similarly, all other dead cells stay dead.
+    </li>
 </ul>
 For each iteration (or generation as I'm calling them), each
 cell will be evaluated according to these rules and will
 either die or be reborn according to the rules provided.
 
-### Turing Machine:
-
 ---
+
+### Turing Machine:
 
 The Game of Life is an example of a Turing Complete automata.
 This means that it can function as a Turing Machine. A Turing
@@ -65,10 +67,9 @@ mathematician Alan Turing.
 </li>
 </ul>
 
+## ---> To Install Locally <---
+
 ```
-
----> To Install Locally <---
-
 Clone the project into the project directory. Once inside the project directory, you can run:
 
 `yarn install` or `npm i`
@@ -76,10 +77,11 @@ Clone the project into the project directory. Once inside the project directory,
 Then:
 
 `yarn install` or `npm i`
+```
 
+## ---> Learn More <---
 
----> Learn More <---
-
+```
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
