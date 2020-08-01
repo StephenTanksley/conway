@@ -127,7 +127,10 @@ const App = () => {
         }
       });
     });
-  }, [size]);
+    console.log("grid value: ", grid);
+    console.log("buffer value: ", buffer);
+    setGrid(buffer);
+  }, [buffer, grid, size]);
 
   return (
     <>
@@ -234,7 +237,7 @@ const App = () => {
         {/* <div>{updateTime}</div> */}
       </Container>
 
-      <Container>
+      {/* <Container>
         <label for="size">Size</label>
         <RubberSlider
           width={200}
@@ -249,7 +252,7 @@ const App = () => {
         />
 
         <div>{size}</div>
-      </Container>
+      </Container> */}
     </>
   );
 };

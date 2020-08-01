@@ -50,11 +50,7 @@ export const InfoPanel = () => {
                   </ul>
                   For each iteration (or generation as I'm calling them), each
                   cell will be evaluated according to these rules and will
-                  either die or be reborn according to the rules provided. The
-                  Game of Life is an example of a Turing Complete automata. This
-                  means that it can function as a Turing Machine. A Turing
-                  Machine is a theoretical machine posited by British
-                  mathematician Alan Turing.
+                  either die or be reborn according to the rules provided.
                 </Card.Body>
               </Accordion.Collapse>
             </Card>
@@ -67,6 +63,10 @@ export const InfoPanel = () => {
               <Accordion.Collapse eventKey="2">
                 <Card.Body>
                   <h4>A Turing Machine: </h4>
+                  The Game of Life is an example of a Turing Complete automata.
+                  This means that it can function as a Turing Machine. A Turing
+                  Machine is a theoretical machine posited by British
+                  mathematician Alan Turing.
                   <ul>
                     <li>
                       Imagines an arbitrarily long magnetic tape divided into
