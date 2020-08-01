@@ -48,7 +48,7 @@ const App = () => {
   });
 
   console.log("initial size: ", size);
-  const [value, setValue] = useState(0.5);
+  const [value, setValue] = useState(4);
 
   // setting the width for responsive design
   const dimensions = Math.round((window.innerWidth * 0.36) / size);
@@ -127,7 +127,8 @@ const App = () => {
         }
       });
     });
-  }, [size]);
+    setBuffer(grid);
+  }, [grid, size]);
 
   return (
     <>
@@ -220,6 +221,9 @@ const App = () => {
         </ControlButton>
       </Container>
       <Container>
+        <div>Update speed: {updateTime} ms</div>
+      </Container>
+      <Container>
         <label for="speed-slider">Speed</label>
         <RubberSlider
           width={200}
@@ -231,7 +235,6 @@ const App = () => {
           max={20}
           default={10}
         />
-        {/* <div>{updateTime}</div> */}
       </Container>
 
       {/* <Container>
