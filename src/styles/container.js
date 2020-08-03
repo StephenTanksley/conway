@@ -11,7 +11,7 @@ export const Container = styled.div`
 
 export const GridContainer = styled.div`
   display: grid;
-  width: 75vw;
+  width: 36.8vw;
   height: auto;
   margin: 0 auto;
   justify-ontent: center;
@@ -45,18 +45,12 @@ export const ControlButton = styled.button`
 `;
 
 export const Cell = styled.div`
-  justify-content: center;
-  margin: 0 auto;
-  padding: 0;
-  margin: 0;
-  align-items: center;
   border-radius: 0.3rem;
   border: solid 1px #efefef;
   background-color: ${(props) =>
-    `#${props.alive === true ? "#cccccc" : "white"}`};
-  box-shadow: inset 0px 0px 1px #000000;
-  height: ${(props) => `${props.size}px`};
-  width: ${(props) => `${props.size}px`};
+    `${props.alive === true ? LivingColor() : "white"}`};
+  height: ${(props) => `${props.dimensions}px`};
+  width: ${(props) => `${props.dimensions}px`};
 `;
 
 export const LivingColor = () => {

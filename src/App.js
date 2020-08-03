@@ -8,6 +8,7 @@ import {
   ControlButton,
   Cell,
   LivingColor,
+  GridContainer,
 } from "./styles/container";
 
 import { InfoPanel } from "./components/InfoPanel";
@@ -137,16 +138,16 @@ const App = () => {
       </BoardContainer>
       <Container>
         <BoardContainer>
-          <div
-            // dimensions={dimensions}
-            // size={size}
-            style={{
-              display: "grid",
-              width: "40vw",
-              alignItems: "center",
-              // border: "1px solid LightGray",
-              gridTemplateColumns: `repeat(${size}, ${dimensions}px)`,
-            }}
+          <GridContainer
+            dimensions={dimensions}
+            size={size}
+            // style={{
+            //   display: "grid",
+            //   width: "40vw",
+            //   alignItems: "center",
+            //   // border: "1px solid LightGray",
+            //   gridTemplateColumns: `repeat(${size}, ${dimensions}px)`,
+            // }}
           >
             {grid.map((rows, i) =>
               rows.map((col, j) => (
@@ -162,8 +163,8 @@ const App = () => {
                         }
                       : undefined
                   }
-                  // dimensions={dimensions}
-                  // alive={grid[i][j] ? true : false}
+                  dimensions={dimensions}
+                  alive={grid[i][j] ? true : false}
                   style={{
                     width: `${dimensions}px`,
                     height: `${dimensions}px`,
@@ -173,7 +174,7 @@ const App = () => {
                 />
               ))
             )}
-          </div>
+          </GridContainer>
         </BoardContainer>
         <InfoPanel />
       </Container>
